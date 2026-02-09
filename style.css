@@ -1,99 +1,38 @@
-/* General Page Styling */
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #5D4037; /* Chocolate Brown */
-    background-image: linear-gradient(to bottom right, #5D4037, #8D6E63);
+    margin: 0; padding: 0;
+    font-family: sans-serif;
+    background: linear-gradient(to bottom right, #5D4037, #8D6E63);
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden; /* Prevents scrollbars when items fall */
+    overflow: hidden;
+    color: #3E2723;
 }
-
-/* The Central Card */
-.container {
-    text-align: center;
-    width: 90%;
-    max-width: 400px;
-}
-
+.container { text-align: center; width: 90%; max-width: 400px; }
 .card {
-    background: #FFF3E0; /* Creamy White */
+    background: #FFF3E0;
     padding: 30px;
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.3);
     border: 4px solid #D7CCC8;
 }
-
-/* Typography */
-h1 {
-    color: #3E2723;
-    margin-bottom: 10px;
-    font-size: 24px;
-}
-
-p {
-    color: #6D4C41;
-    font-size: 16px;
-    margin-bottom: 25px;
-}
-
-.header-icon {
-    font-size: 50px;
-    margin-bottom: 10px;
-    animation: float 3s ease-in-out infinite;
-}
-
-/* Button Styling */
+.header-icon { font-size: 50px; animation: float 3s infinite ease-in-out; }
+h1 { margin: 10px 0; font-size: 28px; }
 button {
-    background-color: #E91E63; /* Pink */
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    font-size: 18px;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: transform 0.2s;
-    box-shadow: 0 5px 15px rgba(233, 30, 99, 0.4);
+    background-color: #E91E63; color: white;
+    border: none; padding: 15px 30px;
+    font-size: 18px; border-radius: 50px;
+    cursor: pointer; margin-top: 20px;
+    box-shadow: 0 5px 15px rgba(233,30,99,0.4);
 }
-
-button:active {
-    transform: scale(0.95);
-}
-
-/* Hidden Message */
-.hidden {
-    display: none;
-    margin-top: 20px;
-    color: #E91E63;
-    font-weight: bold;
-    font-size: 18px;
-    animation: fadeIn 1s;
-}
-
-/* Animation Keyframes */
+.hidden { display: none; color: #E91E63; font-weight: bold; margin-top: 20px; }
 @keyframes float {
-    0% { transform: translateY(0px); }
+    0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
 }
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* Falling Item Styling */
 .falling-item {
-    position: fixed;
-    top: -50px;
-    z-index: 999;
-    font-size: 24px;
-    animation: fall linear forwards;
+    position: fixed; top: -50px; z-index: 999;
+    font-size: 24px; animation: fall 3s linear forwards;
 }
-
-@keyframes fall {
-    to { transform: translateY(110vh) rotate(360deg); }
-}
+@keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
