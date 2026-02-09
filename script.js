@@ -1,37 +1,79 @@
-document.getElementById('chocolateBox').addEventListener('click', function() {
-    this.classList.toggle('open');
-    createHearts();
-});
+let chocolatesEaten = 0;
+let isBoxOpen = false;
 
-function createHearts() {
-    const container = document.querySelector('.hearts-container');
+function openBox() {
+    if (isBoxOpen) return; // Prevent re-opening
     
-    // Create 10 floating hearts
-    for (let i = 0; i < 15; i++) {
-        const heart = document.createElement('div');
-        heart.innerHTML = '❤️';
-        heart.style.position = 'fixed';
-        heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.bottom = '-20px';
-        heart.style.fontSize = Math.random() * 20 + 20 + 'px';
-        heart.style.animation = `float ${Math.random() * 2 + 3}s linear`;
-        heart.style.opacity = '0.7';
-        
-        container.appendChild(heart);
+    const box = document.querySelector('.box-wrapper');
+    const instruction = document.getElementById('instruction');
 
-        // Remove heart after animation
-        setTimeout(() => {
-            heart.remove();
-        }, 5000);
+    // Add shake effect first
+    box.classList.add('shake');
+    
+    setTimeout(() => {
+        box.classList.remove('shake');
+        box.classList.add('open');
+        isBoxOpen = true;
+        instruction.innerHTML = "Tap the chocolates to eat them! 😋";
+    }, 500); // Wait 0.5s for shake to finish
+}
+
+function eatChocolate(element, emoji) {
+    if (!isBoxOpen) return;
+    
+    // 1. Create floating "Yum!" text
+    const rect = element.getBoundingClientRect();
+    const yum = document.createElement('div');
+    yum.innerText = ["Yum! 😋", "Sweet!", "Delicious!"][chocolatesEaten]; 
+    yum.className = 'pop-text';
+    yum.style.left = rect.left + 'px';
+    yum.style.top = rect.top + 'px';
+    document.body.appendChild(yum);
+    
+    // 2. Hide the chocolate
+    element.style.visibility = 'hidden'; // Keeps layout stable but invisible
+    
+    // 3. Remove floating text after animation
+    setTimeout(() => yum.remove(), 1000);
+
+    // 4. Update count
+    chocolatesEaten++;
+
+    // 5. Check if all are eaten
+    if (chocolatesEaten === 3) {
+        setTimeout(showFinalMessage, 800);
     }
 }
 
-// Add CSS animation for hearts dynamically
-const style = document.createElement('style');
-style.innerHTML = `
-    @keyframes float {
-        0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-        100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+function showFinalMessage() {
+    document.getElementById('instruction').style.display = 'none';
+    document.querySelector('.box-wrapper').style.display = 'none'; // Hide empty box
+    
+    const msg = document.getElementById('final-msg');
+    msg.style.display = 'block';
+    
+    // Confetti rain
+    createConfetti();
+}
+
+function createConfetti() {
+    for(let i=0; i<30; i++) {
+        const conf = document.createElement('div');
+        conf.innerHTML = ['❤️','🍫','✨'][Math.floor(Math.random()*3)];
+        conf.style.position = 'fixed';
+        conf.style.left = Math.random() * 100 + 'vw';
+        conf.style.top = '-10vh';
+        conf.style.fontSize = Math.random() * 20 + 10 + 'px';
+        conf.style.animation = `fall ${Math.random() * 2 + 2}s linear forwards`;
+        document.body.appendChild(conf);
     }
-`;
-document.head.appendChild(style);
+    
+    // Add CSS for falling
+    const style = document.createElement('style');
+    style.innerHTML = `@keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }`;
+    document.head.appendChild(style);
+}
+
+function replay() {
+    location.reload();
+}
