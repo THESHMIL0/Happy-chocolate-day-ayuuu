@@ -1,86 +1,37 @@
-let count = 0;
-let isOpen = false;
+function releaseChocolates() {
+    // 1. Show the hidden sweet message
+    const messageDiv = document.getElementById('message');
+    messageDiv.style.display = 'block';
 
-const box = document.getElementById('box');
-const chocolates = document.querySelectorAll('.choco');
-const hint = document.getElementById('hint');
-const finalCard = document.getElementById('final-card');
+    // 2. Change button text
+    const btn = document.getElementById('giftBtn');
+    btn.innerText = "Enjoy! 🍫";
 
-// Open Box Event
-box.addEventListener('click', function() {
-    if (isOpen) return; // Stop if already open
+    // 3. Create falling elements
+    const emojis = ['🍫', '🍬', '🍩', '🍪', '❤️', '🧁'];
     
-    // Add Shake
-    box.classList.add('shake');
-    
-    // Open after shake
-    setTimeout(() => {
-        box.classList.remove('shake');
-        box.classList.add('open');
-        isOpen = true;
-        hint.innerText = "Eat the chocolates! 😋";
-    }, 500);
-});
-
-// Eat Chocolates Event
-chocolates.forEach(choco => {
-    choco.addEventListener('click', (e) => {
-        e.stopPropagation(); // Prevent clicking the box underneath
-        
-        if (!isOpen) return;
-
-        // Hide chocolate visually
-        choco.style.opacity = '0';
-        choco.style.transform = 'scale(0)';
-        
-        count++;
-
-        // Show "Yum" text
-        showYum(e.clientX, e.clientY);
-
-        // Check if all eaten
-        if (count === 3) {
-            setTimeout(() => {
-                finalCard.classList.remove('hidden');
-                hint.style.display = 'none';
-                createConfetti();
-            }, 800);
-        }
-    });
-});
-
-function showYum(x, y) {
-    const el = document.createElement('div');
-    el.innerText = "Yum! ❤️";
-    el.style.position = 'fixed';
-    el.style.left = x + 'px';
-    el.style.top = y + 'px';
-    el.style.color = '#d32f2f';
-    el.style.fontWeight = 'bold';
-    el.style.pointerEvents = 'none';
-    el.style.transition = '1s';
-    document.body.appendChild(el);
-
-    setTimeout(() => {
-        el.style.transform = 'translateY(-50px)';
-        el.style.opacity = '0';
-    }, 50);
-
-    setTimeout(() => el.remove(), 1000);
+    // Create 30 falling items
+    for (let i = 0; i < 30; i++) {
+        createFallingItem(emojis);
+    }
 }
 
-function createConfetti() {
-    for(let i=0; i<50; i++) {
-        const c = document.createElement('div');
-        c.innerHTML = Math.random() > 0.5 ? '❤️' : '🍫';
-        c.style.position = 'fixed';
-        c.style.left = Math.random() * 100 + 'vw';
-        c.style.top = '-10vh';
-        c.style.animation = `fall ${Math.random() * 3 + 2}s linear`;
-        document.body.appendChild(c);
-    }
+function createFallingItem(emojis) {
+    const item = document.createElement('div');
+    item.classList.add('falling-item');
     
-    const style = document.createElement('style');
-    style.innerHTML = `@keyframes fall { to { transform: translateY(110vh); } }`;
-    document.head.appendChild(style);
+    // Pick a random emoji
+    item.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+    
+    // Randomize position and speed
+    item.style.left = Math.random() * 100 + 'vw';
+    item.style.animationDuration = (Math.random() * 2 + 2) + 's'; // 2 to 4 seconds
+    item.style.fontSize = (Math.random() * 20 + 20) + 'px'; // Size variation
+    
+    document.body.appendChild(item);
+
+    // Remove the item after animation to keep the phone running smoothly
+    setTimeout(() => {
+        item.remove();
+    }, 4000);
 }
