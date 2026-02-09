@@ -5,34 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For Ayuuu ❤️</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <div class="container">
-        <h1 class="title">Happy Chocolate Day,<br>My Sweet Ayushka! 🍫</h1>
+        <h1 class="title">For My Sweetest Ayushka 🍫</h1>
         
-        <div class="box-container" id="chocolateBox">
-            <div class="box-lid">
+        <div class="box-wrapper" onclick="openBox()">
+            <div class="box-lid" id="lid">
                 <div class="bow"></div>
             </div>
             <div class="box-body">
-                <div class="chocolates">
-                    <div class="choco heart"></div>
-                    <div class="choco circle"></div>
-                    <div class="choco square"></div>
-                </div>
-                <div class="message-card">
-                    <p>You are sweeter than any chocolate in the world!</p>
-                    <p>Miss you, Theshu ❤️</p>
+                <div class="chocolates-container" id="choco-tray">
+                    <div class="choco heart" onclick="eatChocolate(this, '❤️')"></div>
+                    <div class="choco round" onclick="eatChocolate(this, '🍬')"></div>
+                    <div class="choco square" onclick="eatChocolate(this, '🍫')"></div>
                 </div>
             </div>
         </div>
 
-        <p class="instruction">Tap the box to open!</p>
+        <p id="instruction" class="instruction">Tap the box to open!</p>
+        
+        <div id="final-msg" class="hidden-message">
+            <h2>All gone? 😲</h2>
+            <p>The chocolates are finished...</p>
+            <p>But my love for you never ends! ❤️</p>
+            <p class="signature">- Theshu</p>
+            <button onclick="replay()">Give me more! 🔄</button>
+        </div>
     </div>
-
-    <div class="hearts-container"></div>
 
     <script src="script.js"></script>
 </body>
