@@ -9,30 +9,32 @@
 </head>
 <body>
 
-    <div class="container">
-        <h1 class="title">For My Sweetest Ayushka 🍫</h1>
+    <div class="main-container">
+        <h1 class="title">Happy Chocolate Day<br>Ayuuu! 🍫</h1>
         
-        <div class="box-wrapper" onclick="openBox()">
-            <div class="box-lid" id="lid">
-                <div class="bow"></div>
+        <div class="box-area" id="box">
+            
+            <div class="box-lid">
+                <div class="box-bow"></div>
             </div>
-            <div class="box-body">
-                <div class="chocolates-container" id="choco-tray">
-                    <div class="choco heart" onclick="eatChocolate(this, '❤️')"></div>
-                    <div class="choco round" onclick="eatChocolate(this, '🍬')"></div>
-                    <div class="choco square" onclick="eatChocolate(this, '🍫')"></div>
+
+            <div class="box-base">
+                <div class="chocolates-row">
+                    <div class="choco heart" data-type="heart"></div>
+                    <div class="choco circle" data-type="circle"></div>
+                    <div class="choco square" data-type="square"></div>
                 </div>
             </div>
+        
         </div>
 
-        <p id="instruction" class="instruction">Tap the box to open!</p>
-        
-        <div id="final-msg" class="hidden-message">
-            <h2>All gone? 😲</h2>
-            <p>The chocolates are finished...</p>
-            <p>But my love for you never ends! ❤️</p>
-            <p class="signature">- Theshu</p>
-            <button onclick="replay()">Give me more! 🔄</button>
+        <p id="hint">Tap the box to open! 👆</p>
+
+        <div id="final-card" class="hidden">
+            <h2>You ate them all! 😲</h2>
+            <p>You are sweeter than any chocolate!</p>
+            <p>I love you ❤️</p>
+            <button onclick="location.reload()">Replay 🔄</button>
         </div>
     </div>
 
