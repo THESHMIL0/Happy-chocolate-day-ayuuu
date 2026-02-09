@@ -23,7 +23,7 @@
         color: rgba(255, 255, 255, 0.1);
         animation: floatUp linear infinite;
         bottom: -10vh;
-        z-index: 1; /* Behind the card */
+        z-index: 1; 
     }
 
     /* 3. The Card */
@@ -37,7 +37,7 @@
         animation: heartbeat 3s infinite;
     }
 
-    /* 4. Photo Circle (Interactive) */
+    /* 4. Photo Circle */
     .photo-frame {
         width: 140px; height: 140px;
         margin: 0 auto 15px;
@@ -51,53 +51,89 @@
     .photo-frame:active { transform: scale(0.9); }
     .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
 
-    @keyframes heartbeat {
-        0% { transform: scale(1); box-shadow: 0 0 20px rgba(233,30,99,0.4); }
-        50% { transform: scale(1.02); box-shadow: 0 0 50px rgba(233,30,99,0.7); }
-        100% { transform: scale(1); box-shadow: 0 0 20px rgba(233,30,99,0.4); }
+    /* 5. Love Meter Style (NEW) */
+    .meter-box {
+        width: 100%; height: 20px;
+        background: #FFCDD2; border-radius: 10px;
+        margin: 15px 0; overflow: hidden;
+        border: 2px solid #C2185B;
+        display: none; 
     }
-    @keyframes floatUp { from { transform: translateY(0); } to { transform: translateY(-120vh); } }
+    .meter-fill {
+        height: 100%; width: 0%;
+        background: linear-gradient(90deg, #F06292, #D81B60);
+        transition: width 2s ease-out; 
+    }
+
     /* Buttons & Text */
     h1 { color: #880E4F; margin: 5px 0; font-size: 26px; }
     p { color: #AD1457; font-size: 15px; margin-bottom: 20px; }
     
     .btn {
-        width: 100%; padding: 15px; margin: 8px 0;
+        width: 100%; padding: 12px; margin: 5px 0;
         border: none; border-radius: 50px;
-        font-size: 18px; font-weight: bold; cursor: pointer;
+        font-size: 16px; font-weight: bold; cursor: pointer;
         color: white; transition: 0.2s;
         box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
     .btn-choco { background: #5D4037; } 
-    .btn-coupon { background: #E91E63; border: 2px dashed white; } /* Coupon Button */
-    
+    .btn-coupon { background: #E91E63; border: 2px dashed white; }
+    .btn-meter { background: #D81B60; }
+
     .btn:active { transform: scale(0.90); }
 
     .result-box {
-        margin-top: 15px; padding: 15px;
+        margin-top: 15px; padding: 10px;
         border-radius: 10px; background: #FCE4EC;
         color: #C2185B; font-weight: bold; font-size: 16px;
         border: 2px dashed #E91E63;
         display: none; animation: popIn 0.5s;
     }
+    
+    @keyframes heartbeat { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
     @keyframes popIn { from { transform: scale(0); } to { transform: scale(1); } }
+    @keyframes floatUp { from { transform: translateY(0); } to { transform: translateY(-120vh); } }
     .falling-item { position: fixed; top: -50px; z-index: 999; font-size: 24px; animation: fall 3s linear forwards; }
     @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 </style>
 </head>
 <body>
-
 <div id="bg-hearts"></div>
 
 <div class="container">
     <div class="card">
         <div class="photo-frame" onclick="explodeHearts()">
-            <img src="cute.gif" alt="Kissing Cat">
+            <img src="cute.gif" alt="Tap me!">
+        </div>
+
+        <h1>For My Ayuuu 😽</h1>
+        <p>Tap the photo or background!</p>
+
+        <button class="btn btn-choco" onclick="rainChocolates()">
+            Send Chocolates! 🍫
+        </button>
+
+        <button class="btn btn-coupon" onclick="getCoupon()">
+            Claim Love Coupon 🎟️
+        </button>
+        
+        <button class="btn btn-meter" onclick="checkLove()">
+            Check Love Level 🌡️
+        </button>
+
+        <div id="love-meter" class="meter-box">
+            <div id="fill-bar" class="meter-fill"></div>
+        </div>
+
+        <div id="msg" class="result-box"></div>
+    </div>
+</div>
+
 <script>
-    // 1. Initialize Background Hearts
+    // 1. Background Hearts
     function createBgHearts() {
         const container = document.getElementById('bg-hearts');
-        for(let i=0; i<20; i++) {
+        for(let i=0; i<15; i++) {
             const heart = document.createElement('div');
             heart.classList.add('bg-heart');
             heart.innerHTML = '❤';
@@ -107,43 +143,63 @@
             container.appendChild(heart);
         }
     }
-    createBgHearts(); // Run immediately
+    createBgHearts();
 
-    // 2. Love Coupon Generator (Spicy & Cute)
-    function getCoupon() {
-        const coupons = [
-            "🎟️ Coupon: One Big Tight Hug",
-            "🎟️ Coupon: 100 Kisses (Redeem Now)",
-            "🎟️ Coupon: I will buy you Chocolate",
-            "🎟️ Coupon: A Late Night Date",
-            "🎟️ Coupon: You win an argument",
-            "🎟️ Coupon: One Massage by Me",
-            "🎟️ Coupon: Unlimited Cuddles"
-        ];
-        const random = coupons[Math.floor(Math.random() * coupons.length)];
-        const box = document.getElementById('msg');
-        box.style.display = 'block';
-        box.innerText = random;
+    // 2. Love Meter Logic (NEW)
+    function checkLove() {
+        const meter = document.getElementById('love-meter');
+        const bar = document.getElementById('fill-bar');
+        const msg = document.getElementById('msg');
+
+        meter.style.display = 'block';
+        msg.style.display = 'block';
+        msg.innerText = "Scanning heart... 📡";
         
-        // Vibration effect
-        if(navigator.vibrate) navigator.vibrate([100, 50, 100]);
+        // Reset bar
+        bar.style.width = '0%';
+        
+        // Fill it
+        setTimeout(() => { bar.style.width = '100%'; }, 100);
+        
+        // Show Success
+        setTimeout(() => {
+            msg.innerText = "100% Love Detected! 🚨❤️";
+            explodeHearts();
+            if(navigator.vibrate) navigator.vibrate([100, 50, 100]);
+        }, 2200);
     }
 
-    // 3. Rain Function
-    function rainChocolates() {
-        const emojis = ['🍫', '🍩', '🍪', '🍬'];
-        for (let i = 0; i < 30; i++) createItem(emojis);
+    // 3. Magic Touch (Tap background for hearts)
+    document.addEventListener('click', function(e) {
+        if(e.target.tagName === 'BUTTON') return; // Don't trigger on buttons
+        
+        const heart = document.createElement('div');
+        heart.classList.add('falling-item');
+        heart.innerText = '❤️';
+        // Position exactly where you tapped
+        heart.style.left = e.clientX + 'px';
+        heart.style.top = e.clientY + 'px';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 1000);
+    });
+
+    // 4. Other Functions
+    function getCoupon() {
+        const coupons = ["🎟️ One Big Tight Hug", "🎟️ 100 Kisses", "🎟️ Chocolate Date", "🎟️ Massage by Me", "🎟️ Unlimited Cuddles"];
         document.getElementById('msg').style.display = 'block';
-        document.getElementById('msg').innerText = "Enjoy the sweetness! 😸";
+        document.getElementById('msg').innerText = coupons[Math.floor(Math.random() * coupons.length)];
     }
 
-    // 4. Photo Interaction (Explode Hearts)
+    function rainChocolates() {
+        for (let i = 0; i < 30; i++) createItem(['🍫', '🍩', '🍬']);
+        document.getElementById('msg').style.display = 'block';
+        document.getElementById('msg').innerText = "Enjoy! 😸";
+    }
+
     function explodeHearts() {
         for (let i = 0; i < 20; i++) createItem(['❤️', '💖', '😽']);
-        if(navigator.vibrate) navigator.vibrate(50);
     }
 
-    // Helper
     function createItem(emojis) {
         const item = document.createElement('div');
         item.classList.add('falling-item');
@@ -157,20 +213,3 @@
 </script>
 </body>
 </html>
-
-        </div>
-
-        <h1>For My Ayuuu 😽</h1>
-        <p>Tap my photo for a surprise!</p>
-
-        <button class="btn btn-choco" onclick="rainChocolates()">
-            Send Chocolates! 🍫
-        </button>
-
-        <button class="btn btn-coupon" onclick="getCoupon()">
-            Claim Love Coupon 🎟️
-        </button>
-
-        <div id="msg" class="result-box"></div>
-    </div>
-</div>
