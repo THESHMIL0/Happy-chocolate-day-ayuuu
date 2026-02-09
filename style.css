@@ -1,175 +1,99 @@
-* {
+/* General Page Styling */
+body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background-color: #f8e1e1; /* Light Pink */
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #5D4037; /* Chocolate Brown */
+    background-image: linear-gradient(to bottom right, #5D4037, #8D6E63);
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
-    text-align: center;
+    overflow: hidden; /* Prevents scrollbars when items fall */
 }
 
-.main-container {
-    position: relative;
-    width: 100%;
+/* The Central Card */
+.container {
+    text-align: center;
+    width: 90%;
     max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
-.title {
-    font-family: 'Pacifico', cursive;
-    color: #4e342e;
-    font-size: 2rem;
-    margin-bottom: 20px;
-    z-index: 20;
+.card {
+    background: #FFF3E0; /* Creamy White */
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    border: 4px solid #D7CCC8;
 }
 
-/* --- THE BOX CONTAINER --- */
-.box-area {
-    position: relative;
-    width: 250px;
-    height: 200px;
-    cursor: pointer;
-    transition: transform 0.2s;
-    margin-bottom: 20px;
+/* Typography */
+h1 {
+    color: #3E2723;
+    margin-bottom: 10px;
+    font-size: 24px;
 }
 
-/* Box Base (The bottom part holding chocolates) */
-.box-base {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 80%; /* Takes up bottom 80% */
-    background-color: #3e2723; /* Dark Brown */
-    border-radius: 0 0 15px 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-    z-index: 1;
+p {
+    color: #6D4C41;
+    font-size: 16px;
+    margin-bottom: 25px;
 }
 
-/* Box Lid (The top cover) */
-.box-lid {
-    position: absolute;
-    top: 0;
-    left: -5%; /* Overhangs slightly */
-    width: 110%; /* Wider than base */
-    height: 25%; /* Takes up top area */
-    background-color: #5d4037; /* Lighter Brown */
-    border-radius: 5px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    z-index: 10; /* Sits on top */
-    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    justify-content: center;
+.header-icon {
+    font-size: 50px;
+    margin-bottom: 10px;
+    animation: float 3s ease-in-out infinite;
 }
 
-/* The Bow */
-.box-bow {
-    position: absolute;
-    top: -15px;
-    width: 50px;
-    height: 50px;
-    background-color: #d32f2f; /* Red */
-    border-radius: 50%;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-.box-bow::before, .box-bow::after {
-    content: '';
-    position: absolute;
-    top: 10px;
-    width: 40px;
-    height: 40px;
-    border: 4px solid #d32f2f;
-    border-radius: 50%;
-    z-index: -1;
-}
-.box-bow::before { left: -20px; }
-.box-bow::after { right: -20px; }
-
-/* --- CHOCOLATES --- */
-.chocolates-row {
-    display: flex;
-    gap: 15px;
-    opacity: 0; /* Hidden initially */
-    transition: opacity 0.5s;
-    pointer-events: none; /* Can't click yet */
-}
-
-.choco {
-    width: 45px;
-    height: 45px;
-    background: #6d4c41;
-    cursor: pointer;
-    transition: transform 0.1s;
-}
-.choco:active { transform: scale(0.9); }
-
-.choco.heart { 
-    background-color: #8d6e63;
-    clip-path: path('M22.5 45 C -15 20, 5 -10, 22.5 10 C 40 -10, 60 20, 22.5 45');
-}
-.choco.circle { border-radius: 50%; border: 3px solid #a1887f; }
-.choco.square { border-radius: 5px; background: linear-gradient(135deg, #5d4037, #3e2723); }
-
-/* --- ANIMATIONS --- */
-/* Open State */
-.box-area.open .box-lid {
-    transform: translateY(-150px) rotate(-10deg);
-    opacity: 0;
-}
-.box-area.open .chocolates-row {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-/* Shake Animation */
-.shake { animation: shake 0.5s; }
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px) rotate(-5deg); }
-    75% { transform: translateX(5px) rotate(5deg); }
-}
-
-/* Hint Text */
-#hint {
-    margin-top: 20px;
-    color: #795548;
-    animation: bounce 2s infinite;
-}
-@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-
-/* Hidden Message Card */
-.hidden { display: none; }
-#final-card {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    z-index: 100;
-    text-align: center;
-}
-#final-card h2 { color: #d32f2f; }
-#final-card button {
-    margin-top: 15px;
-    padding: 10px 20px;
-    background: #d32f2f;
+/* Button Styling */
+button {
+    background-color: #E91E63; /* Pink */
     color: white;
     border: none;
-    border-radius: 20px;
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    box-shadow: 0 5px 15px rgba(233, 30, 99, 0.4);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+/* Hidden Message */
+.hidden {
+    display: none;
+    margin-top: 20px;
+    color: #E91E63;
+    font-weight: bold;
+    font-size: 18px;
+    animation: fadeIn 1s;
+}
+
+/* Animation Keyframes */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Falling Item Styling */
+.falling-item {
+    position: fixed;
+    top: -50px;
+    z-index: 999;
+    font-size: 24px;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to { transform: translateY(110vh) rotate(360deg); }
 }
