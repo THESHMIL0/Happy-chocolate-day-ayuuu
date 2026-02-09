@@ -3,41 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Ayuuu ❤️</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <title>For Ayuuu 🍫</title>
+    <style id="dynamic-styles"></style>
 </head>
 <body>
 
-    <div class="main-container">
-        <h1 class="title">Happy Chocolate Day<br>Ayuuu! 🍫</h1>
-        
-        <div class="box-area" id="box">
+    <div class="container">
+        <div class="card">
+            <div class="header-icon">🍫</div>
+            <h1>Happy Chocolate Day<br>Ayuuu! 😸</h1>
+            <p>Here is a never-ending supply of sweetness just for you.</p>
             
-            <div class="box-lid">
-                <div class="box-bow"></div>
+            <button id="giftBtn" onclick="releaseChocolates()">
+                Send Chocolates! 🎁
+            </button>
+            
+            <div id="message" class="hidden">
+                You are sweeter than any chocolate! <br> ❤️
             </div>
-
-            <div class="box-base">
-                <div class="chocolates-row">
-                    <div class="choco heart" data-type="heart"></div>
-                    <div class="choco circle" data-type="circle"></div>
-                    <div class="choco square" data-type="square"></div>
-                </div>
-            </div>
-        
-        </div>
-
-        <p id="hint">Tap the box to open! 👆</p>
-
-        <div id="final-card" class="hidden">
-            <h2>You ate them all! 😲</h2>
-            <p>You are sweeter than any chocolate!</p>
-            <p>I love you ❤️</p>
-            <button onclick="location.reload()">Replay 🔄</button>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script id="dynamic-script"></script>
 </body>
 </html>
