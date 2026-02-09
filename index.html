@@ -3,151 +3,138 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Ayuuu 🍫</title>
+<title>For Ayuuu 💋</title>
 <style>
-    /* 1. Animated Background */
+    /* 1. Background & Layout */
     body {
         margin: 0; padding: 0;
         font-family: 'Segoe UI', sans-serif;
-        background: linear-gradient(-45deg, #5D4037, #8D6E63, #E91E63, #3E2723);
-        background-size: 400% 400%;
-        animation: gradientBG 15s ease infinite;
+        background: radial-gradient(circle at center, #880E4F, #210515);
         height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
         overflow: hidden;
-        color: #3E2723;
-    }
-    
-    @keyframes gradientBG {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
     }
 
-    /* 2. Glassmorphism Card */
-    .container { text-align: center; width: 90%; max-width: 380px; }
+    /* 2. The Heartbeat Card */
+    .container { width: 90%; max-width: 380px; text-align: center; }
     .card {
-        background: rgba(255, 243, 224, 0.95);
-        padding: 30px;
-        border-radius: 25px;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-        border: 2px solid rgba(255,255,255,0.5);
-        backdrop-filter: blur(5px);
+        background: rgba(255, 255, 255, 0.95);
+        padding: 30px 20px;
+        border-radius: 30px;
+        box-shadow: 0 0 50px rgba(233, 30, 99, 0.6);
+        border: 4px solid #F8BBD0;
+        animation: heartbeat 1.5s infinite; /* The Spicy Pulse */
     }
-    
-    h1 { font-size: 28px; margin-bottom: 5px; color: #4E342E; }
-    .subtitle { color: #8D6E63; font-size: 14px; margin-bottom: 20px; }
-    .cat-icon { font-size: 60px; display: block; margin-bottom: 10px; animation: bounce 2s infinite; }
-    
-    @keyframes bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
+
+    /* 3. The Photo Circle */
+    .photo-frame {
+        width: 120px; height: 120px;
+        margin: 0 auto 15px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 5px solid #E91E63;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
-    /* 3. Buttons */
+    .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* 4. Animations */
+    @keyframes heartbeat {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+        100% { transform: scale(1); }
+    }
+    /* 5. Buttons & Text */
+    h1 { color: #C2185B; margin: 5px 0; font-size: 26px; }
+    p { color: #880E4F; font-size: 14px; margin-bottom: 20px; font-weight: 500; }
+    
     .btn {
-        display: block;
-        width: 100%;
-        padding: 15px;
-        margin: 10px 0;
-        border: none;
-        border-radius: 50px;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: transform 0.2s, box-shadow 0.2s;
-        color: white;
+        width: 100%; padding: 15px; margin: 8px 0;
+        border: none; border-radius: 50px;
+        font-size: 18px; font-weight: bold; cursor: pointer;
+        color: white; transition: 0.2s;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .btn-kiss { background: #E91E63; } /* Pink */
+    .btn-spicy { background: #212121; border: 1px solid #E91E63; } /* Dark Mode Button */
+    
+    .btn:active { transform: scale(0.90); }
+
+    /* The Result Text */
+    .message-box {
+        min-height: 40px; margin-top: 15px;
+        color: #C2185B; font-weight: bold; font-size: 16px;
+        animation: fadeIn 0.5s;
     }
     
-    .btn-choco { background: #5D4037; box-shadow: 0 5px 15px rgba(93, 64, 55, 0.4); }
-    .btn-love { background: #E91E63; box-shadow: 0 5px 15px rgba(233, 30, 99, 0.4); }
-    
-    .btn:active { transform: scale(0.95); }
-
-    /* 4. The Result Box */
-    .result-box {
-        margin-top: 20px;
-        padding: 15px;
-        background: white;
-        border-radius: 15px;
-        border: 2px dashed #E91E63;
-        color: #E91E63;
-        font-weight: bold;
-        display: none; /* Hidden by default */
-        animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    @keyframes popIn { from { transform: scale(0); } to { transform: scale(1); } }
-    
-    /* Falling items style */
-    .falling-item { position: fixed; top: -50px; z-index: 999; font-size: 24px; animation: fall 3s linear forwards; }
-    @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+    /* Floating Items */
+    .floater { position: fixed; bottom: -50px; font-size: 30px; animation: floatUp 4s linear forwards; z-index: 1000; }
+    @keyframes floatUp { to { transform: translateY(-120vh) rotate(20deg); opacity: 0; } }
 </style>
 </head>
 <body>
 
 <div class="container">
     <div class="card">
-        <span class="cat-icon">😺</span>
-        <h1>For Ayuuu</h1>
-        <p class="subtitle">My favorite chocolate in the world.</p>
-        
-        <button class="btn btn-choco" onclick="makeItRain()">
-            Raining Chocolate! 🍫
+        <div class="photo-frame">
+            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExc241ZnJiaWJ6aW42YjF6aW42YjF6aW42YjF6aW42YjF6aW42YjF6/MDJ5dyM81X4dzXg/giphy.gif" alt="Cute Cat">
+        </div>
+
+        <h1>For My Ayuuu 😽</h1>
+        <p>Warning: Highly Addictive Sweetness Inside.</p>
+
+        <button class="btn btn-kiss" onclick="sendKisses()">
+            Send a Kiss 💋
         </button>
 
-        <button class="btn btn-love" onclick="generateNote()">
-            Why you are sweet? ❤️
+        <button class="btn btn-spicy" onclick="spicyNote()">
+            Open Secret Message 🔓
         </button>
-        
-        <div id="display-area" class="result-box"></div>
+
+        <div id="msg" class="message-box"></div>
     </div>
 </div>
 <script>
-    // 1. The Rain Function
-    function makeItRain() {
-        const emojis = ['🍫', '🍬', '🍩', '🍪', '😽', '🧁'];
-        for (let i = 0; i < 30; i++) {
-            createItem(emojis);
+    // 1. Send Floating Kisses
+    function sendKisses() {
+        const icons = ['💋', '👄', '❤️', '🔥'];
+        for (let i = 0; i < 15; i++) {
+            createFloater(icons);
         }
-        showText("Enjoy the sweetness! 😸");
+        document.getElementById('msg').innerText = "Muaaah! 😘";
     }
 
-    // 2. The Random Note Generator
-    function generateNote() {
+    // 2. Generate "Spicy/Cute" Messages
+    function spicyNote() {
         const notes = [
-            "You are sweeter than KitKat! 🍫",
-            "Your smile makes my day! ☀️",
-            "You are my favorite notification! 📱",
-            "Better than any dessert! 🍩",
-            "Sending you a big hug! 🫂",
-            "You are purr-fect! 😽"
+            "You look dangerous today... 🔥",
+            "I want to steal a bite of you! 😈🍫",
+            "Stop being so cute, it's illegal! 👮‍♀️",
+            "Can I borrow a kiss? I promise to give it back. 💋",
+            "You are my favorite distraction. 😏",
+            "I need a hug. Like, right now. 🫂",
+            "You + Me + Chocolate = Perfect. ❤️"
         ];
-        // Pick a random note
+        
         const randomNote = notes[Math.floor(Math.random() * notes.length)];
+        document.getElementById('msg').innerText = randomNote;
         
-        // Rain hearts only
-        for (let i = 0; i < 10; i++) { createItem(['❤️', '💖']); }
-        
-        showText(randomNote);
+        // Add a little vibration/shake effect if mobile supports it
+        if (navigator.vibrate) navigator.vibrate(50);
     }
 
-    // Helper: Show text in the box
-    function showText(text) {
-        const box = document.getElementById('display-area');
-        box.style.display = 'block';
-        box.innerText = text;
-    }
-
-    // Helper: Create falling emojis
-    function createItem(emojiList) {
+    // Helper: Create floating items (going UP this time)
+    function createFloater(icons) {
         const item = document.createElement('div');
-        item.classList.add('falling-item');
-        item.innerText = emojiList[Math.floor(Math.random() * emojiList.length)];
-        item.style.left = Math.random() * 100 + 'vw';
-        item.style.animationDuration = (Math.random() * 2 + 2) + 's'; 
-        item.style.fontSize = (Math.random() * 20 + 20) + 'px'; 
+        item.classList.add('floater');
+        item.innerText = icons[Math.floor(Math.random() * icons.length)];
+        
+        // Random position
+        item.style.left = Math.random() * 90 + 5 + '%';
+        item.style.fontSize = (Math.random() * 20 + 20) + 'px';
+        item.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        
         document.body.appendChild(item);
         setTimeout(() => { item.remove(); }, 4000);
     }
