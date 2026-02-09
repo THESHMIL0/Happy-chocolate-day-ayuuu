@@ -2,14 +2,19 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>For Ayuuu 🍫</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&family=Pacifico&display=swap" rel="stylesheet">
+
 <style>
-    /* 1. Background & Layout */
+    /* 1. Global Styles */
     body {
         margin: 0; padding: 0;
-        font-family: 'Segoe UI', sans-serif;
-        background: radial-gradient(circle at center, #3E2723, #210515);
+        font-family: 'Nunito', sans-serif; /* Cute rounded text */
+        /* Animated Pastel Gradient */
+        background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fad0c4, #fbc2eb);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
         height: 100vh;
         display: flex;
         justify-content: center;
@@ -17,224 +22,216 @@
         overflow: hidden;
     }
 
-    /* 2. Floating Background Hearts */
-    .bg-heart {
-        position: absolute;
-        color: rgba(255, 255, 255, 0.1);
-        animation: floatUp linear infinite;
-        bottom: -10vh;
-        z-index: 1; 
-    }
-
-    /* 3. The Card */
-    .container { width: 90%; max-width: 380px; text-align: center; z-index: 10; }
+    /* 2. The Card (Glassmorphism) */
+    .container { width: 90%; max-width: 350px; text-align: center; z-index: 10; }
     .card {
-        background: rgba(255, 255, 255, 0.95);
+        background: rgba(255, 255, 255, 0.90);
+        backdrop-filter: blur(10px);
         padding: 25px 20px;
-        border-radius: 30px;
-        box-shadow: 0 0 50px rgba(233, 30, 99, 0.6);
-        border: 4px solid #F8BBD0;
+        border-radius: 35px;
+        box-shadow: 0 10px 40px rgba(255, 105, 135, 0.3);
+        border: 4px solid #FFF;
         position: relative;
     }
 
-    /* 4. Photo Circle */
+    /* 3. Photo Circle */
     .photo-frame {
-        width: 130px; height: 130px;
-        margin: 0 auto 10px;
+        width: 120px; height: 120px;
+        margin: -60px auto 10px auto; /* Pops out of the card slightly */
         border-radius: 50%;
         overflow: hidden;
-        border: 5px solid #E91E63;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        border: 6px solid #FFF;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         cursor: pointer;
-        transition: transform 0.2s;
+        background: white;
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     .photo-frame:active { transform: scale(0.9); }
     .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
 
+    /* 4. Typography */
+    h1 { 
+        font-family: 'Pacifico', cursive; 
+        color: #880E4F; 
+        margin: 10px 0 5px 0; 
+        font-size: 28px; 
+        text-shadow: 2px 2px 0px #FFCDD2;
+    }
+    p { color: #AD1457; font-size: 14px; margin-bottom: 15px; font-weight: 600; }
+    
     /* 5. Modals (Popups) */
     .modal {
         display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0,0,0,0.8); z-index: 2000;
+        background: rgba(0,0,0,0.6); z-index: 2000;
         justify-content: center; align-items: center;
+        backdrop-filter: blur(5px);
     }
     .modal-content {
-        background: #FFF3E0; padding: 20px; border-radius: 15px;
-        width: 85%; max-width: 300px; text-align: left;
-        border: 3px solid #5D4037; box-shadow: 0 0 20px #E91E63;
-        animation: popIn 0.3s;
+        background: #FFF; padding: 25px; border-radius: 25px;
+        width: 80%; max-width: 300px; text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 4px solid #F8BBD0;
     }
-    .close-btn { float: right; cursor: pointer; font-size: 24px; color: #E91E63; font-weight: bold; }
-    
-    /* Input Field for Message */
-    textarea {
-        width: 90%; height: 80px;
-        margin-top: 10px; padding: 10px;
-        border-radius: 10px; border: 2px solid #E91E63;
-        font-family: inherit; font-size: 14px;
-        resize: none; outline: none;
-    }
-    /* Buttons & Text */
-    h1 { color: #880E4F; margin: 5px 0; font-size: 24px; }
-    p { color: #AD1457; font-size: 14px; margin-bottom: 15px; }
-    
+    /* 6. Cute Buttons */
     .btn {
-        width: 100%; padding: 12px; margin: 4px 0;
-        border: none; border-radius: 50px;
-        font-size: 16px; font-weight: bold; cursor: pointer;
-        color: white; transition: 0.2s;
-        box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        width: 100%; padding: 14px; margin: 6px 0;
+        border: none; border-radius: 50px; /* Pill shape */
+        font-size: 16px; font-weight: 700; cursor: pointer;
+        color: white; transition: transform 0.2s;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        font-family: 'Nunito', sans-serif;
     }
-    .btn-choco { background: #5D4037; } 
-    .btn-coupon { background: #E91E63; border: 2px dashed white; }
-    .btn-meter { background: #D81B60; }
-    .btn-letter { background: #FFF; color: #E91E63; border: 2px solid #E91E63; }
-    .btn-whatsapp { background: #25D366; }
-
     .btn:active { transform: scale(0.95); }
+    
+    /* Button Colors */
+    .btn-choco { background: linear-gradient(to right, #5D4037, #795548); } 
+    .btn-coupon { background: linear-gradient(to right, #EC407A, #D81B60); }
+    .btn-meter { background: linear-gradient(to right, #AB47BC, #8E24AA); }
+    .btn-letter { background: #FFF; color: #E91E63; border: 2px solid #E91E63; }
+    .btn-whatsapp { background: linear-gradient(to right, #25D366, #128C7E); }
+    .close-btn { 
+        display: block; margin: 10px auto 0; padding: 8px 20px; 
+        background: #FFCDD2; color: #C2185B; border-radius: 20px; 
+        cursor: pointer; width: fit-content; font-weight: bold;
+    }
 
+    /* Input Field */
+    textarea {
+        width: 90%; height: 70px; margin-top: 10px; padding: 12px;
+        border-radius: 15px; border: 2px solid #F48FB1;
+        font-family: 'Nunito', sans-serif; font-size: 16px;
+        resize: none; outline: none; background: #FCE4EC;
+    }
+
+    /* Result Box */
     .result-box {
         margin-top: 10px; padding: 10px;
-        border-radius: 10px; background: #FCE4EC;
+        border-radius: 15px; background: #FFF0F5;
         color: #C2185B; font-weight: bold; font-size: 15px;
-        border: 2px dashed #E91E63;
+        border: 2px dashed #F48FB1;
         display: none; animation: popIn 0.5s;
     }
     
-    @keyframes floatUp { from { transform: translateY(0); } to { transform: translateY(-120vh); } }
-    @keyframes popIn { from { transform: scale(0); } to { transform: scale(1); } }
-    .falling-item { position: fixed; top: -50px; z-index: 999; font-size: 24px; animation: fall 3s linear forwards; }
+    /* Animations */
+    @keyframes popIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    .falling-item { position: fixed; pointer-events: none; z-index: 999; animation: fall 3s linear forwards; }
     @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 </style>
 </head>
 <body>
 
-<div id="bg-hearts"></div>
-
 <div id="letterModal" class="modal">
     <div class="modal-content">
-        <span class="close-btn" onclick="closeModal('letterModal')">&times;</span>
-        <h3>Dear Ayuuu, 📝</h3>
-        <p style="color:#5D4037;">
-            Just wanted to say that you are the sweetest part of my life.
-            Every day with you is like a chocolate box—full of surprises and happiness.
-            <br><br>
-            Happy Chocolate Day! ❤️
+        <h3 style="font-family:'Pacifico'; color:#E91E63;">Dear Ayuuu, 💌</h3>
+        <p style="color:#5D4037; text-align: left;">
+            Every chocolate in the world is sweet, but nothing is sweeter than you. 
+            Thank you for being my happiness! <br><br>
+            Happy Chocolate Day! 🍫
         </p>
+        <div class="close-btn" onclick="closeModal('letterModal')">Close</div>
     </div>
 </div>
 
 <div id="replyModal" class="modal">
     <div class="modal-content">
-        <span class="close-btn" onclick="closeModal('replyModal')">&times;</span>
-        <h3>Write to me 😽</h3>
-        <p style="font-size:14px; color:#5D4037">Type what you want, then click send!</p>
-        
-        <textarea id="myMessage" placeholder="Type here... ex: I want chocolate!"></textarea>
-        
-        <button class="btn btn-whatsapp" onclick="sendWhatsapp()">Send to WhatsApp 🚀</button>
+        <h3 style="font-family:'Pacifico'; color:#25D366;">Write to me 💬</h3>
+        <textarea id="myMessage" placeholder="I want pizza and chocolate..."></textarea>
+        <button class="btn btn-whatsapp" style="margin-top:10px;" onclick="sendWhatsapp()">Send Now 🚀</button>
+        <div class="close-btn" onclick="closeModal('replyModal')">Close</div>
     </div>
 </div>
 
 <div class="container">
     <div class="card">
         <div class="photo-frame" onclick="explodeHearts()">
-            <img src="cute.gif" alt="Tap me!">
+            <img src="cute.gif" alt="Ayuuu">
         </div>
 
         <h1>For My Ayuuu 😽</h1>
-        <p>Tap everything! Surprises everywhere!</p>
+        <p>Tap everything to see magic!</p>
 
         <button class="btn btn-choco" onclick="rainChocolates()">Send Chocolates! 🍫</button>
-        <button class="btn btn-coupon" onclick="getCoupon()">Claim Coupon 🎟️</button>
+        <button class="btn btn-coupon" onclick="getCoupon()">Get Love Coupon 🎟️</button>
         <button class="btn btn-meter" onclick="checkLove()">Check Love Level 🌡️</button>
-        <button class="btn btn-letter" onclick="openModal('letterModal')">Read My Letter 💌</button>
+        <button class="btn btn-letter" onclick="openModal('letterModal')">Read Letter 💌</button>
         <button class="btn btn-whatsapp" onclick="openModal('replyModal')">Send Message 💬</button>
 
         <div id="msg" class="result-box"></div>
     </div>
 </div>
 <script>
-    // 1. WhatsApp Logic (IMPORTANT!)
+    // 1. WhatsApp Logic (⚠️ CHANGE NUMBER HERE)
     function sendWhatsapp() {
         var message = document.getElementById('myMessage').value;
-        if(message === "") {
-            alert("Please type something first! 😸");
-            return;
-        }
+        if(message === "") { alert("Type something cute first! 😸"); return; }
         
-        // 👇👇 REPLACE THIS NUMBER WITH YOUR OWN PHONE NUMBER 👇👇
-        // Format: CountryCode + Number (e.g., 919876543210 for India)
+        // 👇 ENTER YOUR NUMBER (e.g., 919999999999)
         var myNumber = "916238418114"; 
         
         var url = "https://wa.me/" + myNumber + "?text=" + encodeURIComponent(message);
         window.open(url, '_blank');
     }
 
-    // 2. Modals (Open/Close)
+    // 2. Modals
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-    // 3. Other Fun Functions
-    function createBgHearts() {
-        const container = document.getElementById('bg-hearts');
-        for(let i=0; i<15; i++) {
-            const heart = document.createElement('div');
-            heart.classList.add('bg-heart');
-            heart.innerHTML = '❤';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 10 + 5 + 's';
-            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
-            container.appendChild(heart);
-        }
-    }
-    createBgHearts();
-
+    // 3. Love Meter
     function checkLove() {
         const msg = document.getElementById('msg');
         msg.style.display = 'block';
         msg.innerText = "Scanning heart... 📡";
         setTimeout(() => {
-            msg.innerText = "100% Love Detected! 🚨❤️";
+            msg.innerHTML = "Result: <br> 1000% LOVE DETECTED! 🚨❤️";
             explodeHearts();
             if(navigator.vibrate) navigator.vibrate([100, 50, 100]);
-        }, 2000);
+        }, 1500);
     }
 
+    // 4. Coupons
     function getCoupon() {
-        const coupons = ["🎟️ One Big Tight Hug", "🎟️ 100 Kisses", "🎟️ Chocolate Date", "🎟️ Massage by Me", "🎟️ Unlimited Cuddles"];
+        const coupons = ["🎟️ Free Hug Coupon", "🎟️ 100 Kisses Coupon", "🎟️ Date Night Coupon", "🎟️ Massage Coupon", "🎟️ 'You are Right' Coupon"];
         const msg = document.getElementById('msg');
         msg.style.display = 'block';
         msg.innerText = coupons[Math.floor(Math.random() * coupons.length)];
     }
 
+    // 5. Rain & Effects
     function rainChocolates() {
-        for (let i = 0; i < 30; i++) createItem(['🍫', '🍩', '🍬']);
+        for (let i = 0; i < 25; i++) createItem(['🍫', '🍩', '🍬', '🍪']);
         document.getElementById('msg').style.display = 'block';
-        document.getElementById('msg').innerText = "Enjoy! 😸";
+        document.getElementById('msg').innerText = "Sending sweetness... 🚚";
     }
     
-    function explodeHearts() { for (let i = 0; i < 20; i++) createItem(['❤️', '💖', '😽']); }
+    function explodeHearts() { for (let i = 0; i < 15; i++) createItem(['❤️', '💖', '😻']); }
 
+    // Background Magic
     document.addEventListener('click', function(e) {
         if(e.target.tagName === 'BUTTON' || e.target.tagName === 'TEXTAREA' || e.target.closest('.modal-content')) return; 
-        const heart = document.createElement('div');
-        heart.classList.add('falling-item');
-        heart.innerText = '❤️';
-        heart.style.left = e.clientX + 'px';
-        heart.style.top = e.clientY + 'px';
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 1000);
+        createItemAt(['❤️'], e.clientX, e.clientY);
     });
 
+    // Helper: Create Floating Items
     function createItem(emojis) {
         const item = document.createElement('div');
         item.classList.add('falling-item');
         item.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-        item.style.left = Math.random() * 95 + 'vw';
+        item.style.left = Math.random() * 90 + 'vw';
         item.style.fontSize = (Math.random() * 20 + 20) + 'px';
-        item.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        item.style.animationDuration = (Math.random() * 2 + 3) + 's';
         document.body.appendChild(item);
         setTimeout(() => item.remove(), 4000);
+    }
+
+    function createItemAt(emojis, x, y) {
+        const item = document.createElement('div');
+        item.classList.add('falling-item');
+        item.innerText = emojis[0];
+        item.style.left = x + 'px'; item.style.top = y + 'px';
+        document.body.appendChild(item);
+        setTimeout(() => item.remove(), 1000);
     }
 </script>
 </body>
