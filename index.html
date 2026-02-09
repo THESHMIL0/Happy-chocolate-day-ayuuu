@@ -3,13 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Ayuuu 💋</title>
+<title>Chocolate Day Ayuuu 🍫</title>
 <style>
-    /* 1. Background & Layout */
+    /* 1. Chocolatey Background */
     body {
         margin: 0; padding: 0;
         font-family: 'Segoe UI', sans-serif;
-        background: radial-gradient(circle at center, #880E4F, #210515);
+        /* Dark Chocolate to Milk Chocolate Gradient */
+        background: radial-gradient(circle at center, #5D4037, #3E2723);
         height: 100vh;
         display: flex;
         justify-content: center;
@@ -23,19 +24,21 @@
         background: rgba(255, 255, 255, 0.95);
         padding: 30px 20px;
         border-radius: 30px;
-        box-shadow: 0 0 50px rgba(233, 30, 99, 0.6);
-        border: 4px solid #F8BBD0;
-        animation: heartbeat 1.5s infinite; /* The Spicy Pulse */
+        /* Brownish-Pink Glow */
+        box-shadow: 0 0 50px rgba(141, 110, 99, 0.5);
+        border: 4px solid #8D6E63;
+        animation: heartbeat 2s infinite; 
     }
 
     /* 3. The Photo Circle */
     .photo-frame {
-        width: 120px; height: 120px;
+        width: 140px; height: 140px;
         margin: 0 auto 15px;
         border-radius: 50%;
         overflow: hidden;
         border: 5px solid #E91E63;
         box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        background: white;
     }
     .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
 
@@ -46,8 +49,8 @@
         100% { transform: scale(1); }
     }
     /* 5. Buttons & Text */
-    h1 { color: #C2185B; margin: 5px 0; font-size: 26px; }
-    p { color: #880E4F; font-size: 14px; margin-bottom: 20px; font-weight: 500; }
+    h1 { color: #5D4037; margin: 5px 0; font-size: 26px; }
+    p { color: #8D6E63; font-size: 15px; margin-bottom: 20px; font-weight: 500; }
     
     .btn {
         width: 100%; padding: 15px; margin: 8px 0;
@@ -56,8 +59,8 @@
         color: white; transition: 0.2s;
         box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
-    .btn-kiss { background: #E91E63; } /* Pink */
-    .btn-spicy { background: #212121; border: 1px solid #E91E63; } /* Dark Mode Button */
+    .btn-choco { background: #5D4037; } /* Chocolate Color */
+    .btn-spicy { background: #E91E63; } /* Pink Color */
     
     .btn:active { transform: scale(0.90); }
 
@@ -68,9 +71,9 @@
         animation: fadeIn 0.5s;
     }
     
-    /* Floating Items */
-    .floater { position: fixed; bottom: -50px; font-size: 30px; animation: floatUp 4s linear forwards; z-index: 1000; }
-    @keyframes floatUp { to { transform: translateY(-120vh) rotate(20deg); opacity: 0; } }
+    /* Falling Items */
+    .falling-item { position: fixed; top: -50px; z-index: 999; font-size: 24px; animation: fall 3s linear forwards; }
+    @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 </style>
 </head>
 <body>
@@ -78,14 +81,14 @@
 <div class="container">
     <div class="card">
         <div class="photo-frame">
-            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExc241ZnJiaWJ6aW42YjF6aW42YjF6aW42YjF6aW42YjF6aW42YjF6/MDJ5dyM81X4dzXg/giphy.gif" alt="Cute Cat">
+            <img src="https://media1.tenor.com/m/All_qgWq2ekAAAAC/peach-goma-kiss.gif" alt="Kissing Cat">
         </div>
 
-        <h1>For My Ayuuu 😽</h1>
-        <p>Warning: Highly Addictive Sweetness Inside.</p>
+        <h1>Happy Chocolate Day<br>Ayuuu! 🍫</h1>
+        <p>You are sweeter than any dessert.</p>
 
-        <button class="btn btn-kiss" onclick="sendKisses()">
-            Send a Kiss 💋
+        <button class="btn btn-choco" onclick="rainChocolates()">
+            Send Chocolates! 🍫
         </button>
 
         <button class="btn btn-spicy" onclick="spicyNote()">
@@ -96,42 +99,45 @@
     </div>
 </div>
 <script>
-    // 1. Send Floating Kisses
-    function sendKisses() {
-        const icons = ['💋', '👄', '❤️', '🔥'];
-        for (let i = 0; i < 15; i++) {
-            createFloater(icons);
+    // 1. Rain Chocolates (Fixed!)
+    function rainChocolates() {
+        // Falling emojis: Chocolates + Kissing Cats
+        const emojis = ['🍫', '🍬', '🍩', '🍪', '😽', '🧁'];
+        for (let i = 0; i < 30; i++) {
+            createFallingItem(emojis);
         }
-        document.getElementById('msg').innerText = "Muaaah! 😘";
+        document.getElementById('msg').innerText = "Yum! Enjoy! 😸";
     }
 
-    // 2. Generate "Spicy/Cute" Messages
+    // 2. Spicy & Sweet Notes (Chocolate Theme)
     function spicyNote() {
         const notes = [
-            "You look dangerous today... 🔥",
-            "I want to steal a bite of you! 😈🍫",
-            "Stop being so cute, it's illegal! 👮‍♀️",
-            "Can I borrow a kiss? I promise to give it back. 💋",
-            "You are my favorite distraction. 😏",
-            "I need a hug. Like, right now. 🫂",
-            "You + Me + Chocolate = Perfect. ❤️"
+            "I want to melt in your arms like chocolate... 🫠",
+            "You taste sweeter than this KitKat! 🍫",
+            "You are my favorite flavor! 😽",
+            "Can I have a bite of you? 😈",
+            "Life is dark, but you are my milk chocolate. 🤍",
+            "Forget the chocolate, I just want you. ❤️"
         ];
         
         const randomNote = notes[Math.floor(Math.random() * notes.length)];
         document.getElementById('msg').innerText = randomNote;
         
-        // Add a little vibration/shake effect if mobile supports it
+        // Rain Hearts for the note
+        for (let i = 0; i < 10; i++) { 
+            createFallingItem(['❤️', '💖', '🔥']); 
+        }
+        
         if (navigator.vibrate) navigator.vibrate(50);
     }
 
-    // Helper: Create floating items (going UP this time)
-    function createFloater(icons) {
+    // Helper: Create falling items
+    function createFallingItem(emojis) {
         const item = document.createElement('div');
-        item.classList.add('floater');
-        item.innerText = icons[Math.floor(Math.random() * icons.length)];
+        item.classList.add('falling-item');
+        item.innerText = emojis[Math.floor(Math.random() * emojis.length)];
         
-        // Random position
-        item.style.left = Math.random() * 90 + 5 + '%';
+        item.style.left = Math.random() * 90 + 5 + 'vw';
         item.style.fontSize = (Math.random() * 20 + 20) + 'px';
         item.style.animationDuration = (Math.random() * 2 + 2) + 's';
         
