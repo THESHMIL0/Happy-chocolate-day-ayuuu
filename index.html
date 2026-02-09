@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For Ayuuu 🍫</title>
 <style>
-    /* 1. Background */
+    /* 1. Background & Layout */
     body {
         margin: 0; padding: 0;
         font-family: 'Segoe UI', sans-serif;
@@ -30,17 +30,17 @@
     .container { width: 90%; max-width: 380px; text-align: center; z-index: 10; }
     .card {
         background: rgba(255, 255, 255, 0.95);
-        padding: 30px 20px;
+        padding: 25px 20px; /* Adjusted padding to fit more buttons */
         border-radius: 30px;
         box-shadow: 0 0 50px rgba(233, 30, 99, 0.6);
         border: 4px solid #F8BBD0;
-        animation: heartbeat 3s infinite;
+        position: relative;
     }
 
     /* 4. Photo Circle */
     .photo-frame {
-        width: 140px; height: 140px;
-        margin: 0 auto 15px;
+        width: 130px; height: 130px;
+        margin: 0 auto 10px;
         border-radius: 50%;
         overflow: hidden;
         border: 5px solid #E91E63;
@@ -51,11 +51,11 @@
     .photo-frame:active { transform: scale(0.9); }
     .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
 
-    /* 5. Love Meter Style (NEW) */
+    /* 5. Love Meter Style */
     .meter-box {
-        width: 100%; height: 20px;
+        width: 100%; height: 15px;
         background: #FFCDD2; border-radius: 10px;
-        margin: 15px 0; overflow: hidden;
+        margin: 10px 0; overflow: hidden;
         border: 2px solid #C2185B;
         display: none; 
     }
@@ -64,41 +64,69 @@
         background: linear-gradient(90deg, #F06292, #D81B60);
         transition: width 2s ease-out; 
     }
-
+    
+    /* 6. The Letter Popup (New) */
+    .modal {
+        display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8); z-index: 2000;
+        justify-content: center; align-items: center;
+    }
+    .modal-content {
+        background: #FFF3E0; padding: 20px; border-radius: 15px;
+        width: 80%; max-width: 300px; text-align: left;
+        border: 3px solid #5D4037; box-shadow: 0 0 20px #E91E63;
+        animation: popIn 0.3s;
+    }
+    .close-btn { float: right; cursor: pointer; font-size: 20px; color: red; font-weight: bold; }
     /* Buttons & Text */
-    h1 { color: #880E4F; margin: 5px 0; font-size: 26px; }
-    p { color: #AD1457; font-size: 15px; margin-bottom: 20px; }
+    h1 { color: #880E4F; margin: 5px 0; font-size: 24px; }
+    p { color: #AD1457; font-size: 14px; margin-bottom: 15px; }
     
     .btn {
-        width: 100%; padding: 12px; margin: 5px 0;
+        width: 100%; padding: 12px; margin: 4px 0;
         border: none; border-radius: 50px;
         font-size: 16px; font-weight: bold; cursor: pointer;
         color: white; transition: 0.2s;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        box-shadow: 0 3px 8px rgba(0,0,0,0.2);
     }
     .btn-choco { background: #5D4037; } 
     .btn-coupon { background: #E91E63; border: 2px dashed white; }
     .btn-meter { background: #D81B60; }
+    .btn-letter { background: #FFF; color: #E91E63; border: 2px solid #E91E63; }
+    .btn-whatsapp { background: #25D366; }
 
-    .btn:active { transform: scale(0.90); }
+    .btn:active { transform: scale(0.95); }
 
     .result-box {
-        margin-top: 15px; padding: 10px;
+        margin-top: 10px; padding: 10px;
         border-radius: 10px; background: #FCE4EC;
-        color: #C2185B; font-weight: bold; font-size: 16px;
+        color: #C2185B; font-weight: bold; font-size: 15px;
         border: 2px dashed #E91E63;
         display: none; animation: popIn 0.5s;
     }
     
-    @keyframes heartbeat { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
-    @keyframes popIn { from { transform: scale(0); } to { transform: scale(1); } }
     @keyframes floatUp { from { transform: translateY(0); } to { transform: translateY(-120vh); } }
+    @keyframes popIn { from { transform: scale(0); } to { transform: scale(1); } }
     .falling-item { position: fixed; top: -50px; z-index: 999; font-size: 24px; animation: fall 3s linear forwards; }
     @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 </style>
 </head>
 <body>
+
 <div id="bg-hearts"></div>
+
+<div id="letterModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeLetter()">×</span>
+        <h3>Dear Ayuuu, 📝</h3>
+        <p style="color:#5D4037;">
+            Just wanted to say that you are the sweetest part of my life.
+            Every day with you is like a chocolate box—full of surprises and happiness.
+            <br><br>
+            Happy Chocolate Day! ❤️
+        </p>
+    </div>
+</div>
 
 <div class="container">
     <div class="card">
@@ -107,28 +135,18 @@
         </div>
 
         <h1>For My Ayuuu 😽</h1>
-        <p>Tap the photo or background!</p>
+        <p>Tap everything! Surprises everywhere!</p>
 
-        <button class="btn btn-choco" onclick="rainChocolates()">
-            Send Chocolates! 🍫
-        </button>
+        <button class="btn btn-choco" onclick="rainChocolates()">Send Chocolates! 🍫</button>
+        <button class="btn btn-coupon" onclick="getCoupon()">Claim Coupon 🎟️</button>
+        <button class="btn btn-meter" onclick="checkLove()">Check Love Level 🌡️</button>
+        <button class="btn btn-letter" onclick="openLetter()">Read My Letter 💌</button>
+        <button class="btn btn-whatsapp" onclick="sendWhatsapp()">Send 'I Miss You' 💬</button>
 
-        <button class="btn btn-coupon" onclick="getCoupon()">
-            Claim Love Coupon 🎟️
-        </button>
-        
-        <button class="btn btn-meter" onclick="checkLove()">
-            Check Love Level 🌡️
-        </button>
-
-        <div id="love-meter" class="meter-box">
-            <div id="fill-bar" class="meter-fill"></div>
-        </div>
-
+        <div id="love-meter" class="meter-box"><div id="fill-bar" class="meter-fill"></div></div>
         <div id="msg" class="result-box"></div>
     </div>
 </div>
-
 <script>
     // 1. Background Hearts
     function createBgHearts() {
@@ -145,23 +163,16 @@
     }
     createBgHearts();
 
-    // 2. Love Meter Logic (NEW)
+    // 2. Love Meter Logic
     function checkLove() {
         const meter = document.getElementById('love-meter');
         const bar = document.getElementById('fill-bar');
         const msg = document.getElementById('msg');
-
         meter.style.display = 'block';
         msg.style.display = 'block';
         msg.innerText = "Scanning heart... 📡";
-        
-        // Reset bar
         bar.style.width = '0%';
-        
-        // Fill it
         setTimeout(() => { bar.style.width = '100%'; }, 100);
-        
-        // Show Success
         setTimeout(() => {
             msg.innerText = "100% Love Detected! 🚨❤️";
             explodeHearts();
@@ -169,37 +180,45 @@
         }, 2200);
     }
 
-    // 3. Magic Touch (Tap background for hearts)
+    // 3. Coupon Logic
+    function getCoupon() {
+        const coupons = ["🎟️ One Big Tight Hug", "🎟️ 100 Kisses", "🎟️ Chocolate Date", "🎟️ Massage by Me", "🎟️ Unlimited Cuddles"];
+        const msg = document.getElementById('msg');
+        msg.style.display = 'block';
+        msg.innerText = coupons[Math.floor(Math.random() * coupons.length)];
+    }
+
+    // 4. Letter Popup Logic (NEW)
+    function openLetter() { document.getElementById('letterModal').style.display = 'flex'; }
+    function closeLetter() { document.getElementById('letterModal').style.display = 'none'; }
+
+    // 5. WhatsApp Logic (NEW)
+    function sendWhatsapp() {
+        // This opens WhatsApp with a pre-filled message
+        window.location.href = "https://wa.me/?text=Happy%20Chocolate%20Day%20Ayuuu!%20You%20are%20the%20sweetest!%20%F0%9F%8D%AB%E2%9D%A4%EF%B8%8F";
+    }
+
+    // 6. Rain & Explosion Logic
+    function rainChocolates() {
+        for (let i = 0; i < 30; i++) createItem(['🍫', '🍩', '🍬']);
+        document.getElementById('msg').style.display = 'block';
+        document.getElementById('msg').innerText = "Enjoy! 😸";
+    }
+    function explodeHearts() { for (let i = 0; i < 20; i++) createItem(['❤️', '💖', '😽']); }
+
+    // 7. Magic Touch (Background Click)
     document.addEventListener('click', function(e) {
-        if(e.target.tagName === 'BUTTON') return; // Don't trigger on buttons
-        
+        if(e.target.tagName === 'BUTTON' || e.target.closest('.modal-content')) return; 
         const heart = document.createElement('div');
         heart.classList.add('falling-item');
         heart.innerText = '❤️';
-        // Position exactly where you tapped
         heart.style.left = e.clientX + 'px';
         heart.style.top = e.clientY + 'px';
         document.body.appendChild(heart);
         setTimeout(() => heart.remove(), 1000);
     });
 
-    // 4. Other Functions
-    function getCoupon() {
-        const coupons = ["🎟️ One Big Tight Hug", "🎟️ 100 Kisses", "🎟️ Chocolate Date", "🎟️ Massage by Me", "🎟️ Unlimited Cuddles"];
-        document.getElementById('msg').style.display = 'block';
-        document.getElementById('msg').innerText = coupons[Math.floor(Math.random() * coupons.length)];
-    }
-
-    function rainChocolates() {
-        for (let i = 0; i < 30; i++) createItem(['🍫', '🍩', '🍬']);
-        document.getElementById('msg').style.display = 'block';
-        document.getElementById('msg').innerText = "Enjoy! 😸";
-    }
-
-    function explodeHearts() {
-        for (let i = 0; i < 20; i++) createItem(['❤️', '💖', '😽']);
-    }
-
+    // Helper
     function createItem(emojis) {
         const item = document.createElement('div');
         item.classList.add('falling-item');
