@@ -3,14 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chocolate Day Ayuuu 🍫</title>
+<title>For Ayuuu 🍫</title>
 <style>
-    /* 1. Chocolatey Background */
+    /* 1. Background */
     body {
         margin: 0; padding: 0;
         font-family: 'Segoe UI', sans-serif;
-        /* Dark Chocolate to Milk Chocolate Gradient */
-        background: radial-gradient(circle at center, #5D4037, #3E2723);
+        background: radial-gradient(circle at center, #3E2723, #210515);
         height: 100vh;
         display: flex;
         justify-content: center;
@@ -18,19 +17,27 @@
         overflow: hidden;
     }
 
-    /* 2. The Heartbeat Card */
-    .container { width: 90%; max-width: 380px; text-align: center; }
+    /* 2. Floating Background Hearts */
+    .bg-heart {
+        position: absolute;
+        color: rgba(255, 255, 255, 0.1);
+        animation: floatUp linear infinite;
+        bottom: -10vh;
+        z-index: 1; /* Behind the card */
+    }
+
+    /* 3. The Card */
+    .container { width: 90%; max-width: 380px; text-align: center; z-index: 10; }
     .card {
         background: rgba(255, 255, 255, 0.95);
         padding: 30px 20px;
         border-radius: 30px;
-        /* Brownish-Pink Glow */
-        box-shadow: 0 0 50px rgba(141, 110, 99, 0.5);
-        border: 4px solid #8D6E63;
-        animation: heartbeat 2s infinite; 
+        box-shadow: 0 0 50px rgba(233, 30, 99, 0.6);
+        border: 4px solid #F8BBD0;
+        animation: heartbeat 3s infinite;
     }
 
-    /* 3. The Photo Circle */
+    /* 4. Photo Circle (Interactive) */
     .photo-frame {
         width: 140px; height: 140px;
         margin: 0 auto 15px;
@@ -38,19 +45,21 @@
         overflow: hidden;
         border: 5px solid #E91E63;
         box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        background: white;
+        cursor: pointer;
+        transition: transform 0.2s;
     }
+    .photo-frame:active { transform: scale(0.9); }
     .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
 
-    /* 4. Animations */
     @keyframes heartbeat {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.02); }
-        100% { transform: scale(1); }
+        0% { transform: scale(1); box-shadow: 0 0 20px rgba(233,30,99,0.4); }
+        50% { transform: scale(1.02); box-shadow: 0 0 50px rgba(233,30,99,0.7); }
+        100% { transform: scale(1); box-shadow: 0 0 20px rgba(233,30,99,0.4); }
     }
-    /* 5. Buttons & Text */
-    h1 { color: #5D4037; margin: 5px 0; font-size: 26px; }
-    p { color: #8D6E63; font-size: 15px; margin-bottom: 20px; font-weight: 500; }
+    @keyframes floatUp { from { transform: translateY(0); } to { transform: translateY(-120vh); } }
+    /* Buttons & Text */
+    h1 { color: #880E4F; margin: 5px 0; font-size: 26px; }
+    p { color: #AD1457; font-size: 15px; margin-bottom: 20px; }
     
     .btn {
         width: 100%; padding: 15px; margin: 8px 0;
@@ -60,89 +69,108 @@
         box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
     .btn-choco { background: #5D4037; } 
-    .btn-spicy { background: #E91E63; } 
+    .btn-coupon { background: #E91E63; border: 2px dashed white; } /* Coupon Button */
     
     .btn:active { transform: scale(0.90); }
 
-    .message-box {
-        min-height: 40px; margin-top: 15px;
+    .result-box {
+        margin-top: 15px; padding: 15px;
+        border-radius: 10px; background: #FCE4EC;
         color: #C2185B; font-weight: bold; font-size: 16px;
-        animation: fadeIn 0.5s;
+        border: 2px dashed #E91E63;
+        display: none; animation: popIn 0.5s;
     }
-    
+    @keyframes popIn { from { transform: scale(0); } to { transform: scale(1); } }
     .falling-item { position: fixed; top: -50px; z-index: 999; font-size: 24px; animation: fall 3s linear forwards; }
     @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 </style>
 </head>
 <body>
 
+<div id="bg-hearts"></div>
+
 <div class="container">
     <div class="card">
-        <div class="photo-frame">
+        <div class="photo-frame" onclick="explodeHearts()">
             <img src="cute.gif" alt="Kissing Cat">
+<script>
+    // 1. Initialize Background Hearts
+    function createBgHearts() {
+        const container = document.getElementById('bg-hearts');
+        for(let i=0; i<20; i++) {
+            const heart = document.createElement('div');
+            heart.classList.add('bg-heart');
+            heart.innerHTML = '❤';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 10 + 5 + 's';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            container.appendChild(heart);
+        }
+    }
+    createBgHearts(); // Run immediately
+
+    // 2. Love Coupon Generator (Spicy & Cute)
+    function getCoupon() {
+        const coupons = [
+            "🎟️ Coupon: One Big Tight Hug",
+            "🎟️ Coupon: 100 Kisses (Redeem Now)",
+            "🎟️ Coupon: I will buy you Chocolate",
+            "🎟️ Coupon: A Late Night Date",
+            "🎟️ Coupon: You win an argument",
+            "🎟️ Coupon: One Massage by Me",
+            "🎟️ Coupon: Unlimited Cuddles"
+        ];
+        const random = coupons[Math.floor(Math.random() * coupons.length)];
+        const box = document.getElementById('msg');
+        box.style.display = 'block';
+        box.innerText = random;
+        
+        // Vibration effect
+        if(navigator.vibrate) navigator.vibrate([100, 50, 100]);
+    }
+
+    // 3. Rain Function
+    function rainChocolates() {
+        const emojis = ['🍫', '🍩', '🍪', '🍬'];
+        for (let i = 0; i < 30; i++) createItem(emojis);
+        document.getElementById('msg').style.display = 'block';
+        document.getElementById('msg').innerText = "Enjoy the sweetness! 😸";
+    }
+
+    // 4. Photo Interaction (Explode Hearts)
+    function explodeHearts() {
+        for (let i = 0; i < 20; i++) createItem(['❤️', '💖', '😽']);
+        if(navigator.vibrate) navigator.vibrate(50);
+    }
+
+    // Helper
+    function createItem(emojis) {
+        const item = document.createElement('div');
+        item.classList.add('falling-item');
+        item.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+        item.style.left = Math.random() * 95 + 'vw';
+        item.style.fontSize = (Math.random() * 20 + 20) + 'px';
+        item.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        document.body.appendChild(item);
+        setTimeout(() => item.remove(), 4000);
+    }
+</script>
+</body>
+</html>
 
         </div>
 
-        <h1>Happy Chocolate Day<br>Ayuuu! 🍫</h1>
-        <p>You are sweeter than any dessert.</p>
+        <h1>For My Ayuuu 😽</h1>
+        <p>Tap my photo for a surprise!</p>
 
         <button class="btn btn-choco" onclick="rainChocolates()">
             Send Chocolates! 🍫
         </button>
 
-        <button class="btn btn-spicy" onclick="spicyNote()">
-            Open Secret Message 🔓
+        <button class="btn btn-coupon" onclick="getCoupon()">
+            Claim Love Coupon 🎟️
         </button>
 
-        <div id="msg" class="message-box"></div>
+        <div id="msg" class="result-box"></div>
     </div>
 </div>
-<script>
-    // 1. Rain Chocolates (Fixed!)
-    function rainChocolates() {
-        // Falling emojis: Chocolates + Kissing Cats
-        const emojis = ['🍫', '🍬', '🍩', '🍪', '😽', '🧁'];
-        for (let i = 0; i < 30; i++) {
-            createFallingItem(emojis);
-        }
-        document.getElementById('msg').innerText = "Yum! Enjoy! 😸";
-    }
-
-    // 2. Spicy & Sweet Notes (Chocolate Theme)
-    function spicyNote() {
-        const notes = [
-            "I want to melt in your arms like chocolate... 🫠",
-            "You taste sweeter than this KitKat! 🍫",
-            "You are my favorite flavor! 😽",
-            "Can I have a bite of you? 😈",
-            "Life is dark, but you are my milk chocolate. 🤍",
-            "Forget the chocolate, I just want you. ❤️"
-        ];
-        
-        const randomNote = notes[Math.floor(Math.random() * notes.length)];
-        document.getElementById('msg').innerText = randomNote;
-        
-        // Rain Hearts for the note
-        for (let i = 0; i < 10; i++) { 
-            createFallingItem(['❤️', '💖', '🔥']); 
-        }
-        
-        if (navigator.vibrate) navigator.vibrate(50);
-    }
-
-    // Helper: Create falling items
-    function createFallingItem(emojis) {
-        const item = document.createElement('div');
-        item.classList.add('falling-item');
-        item.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-        
-        item.style.left = Math.random() * 90 + 5 + 'vw';
-        item.style.fontSize = (Math.random() * 20 + 20) + 'px';
-        item.style.animationDuration = (Math.random() * 2 + 2) + 's';
-        
-        document.body.appendChild(item);
-        setTimeout(() => { item.remove(); }, 4000);
-    }
-</script>
-</body>
-</html>
