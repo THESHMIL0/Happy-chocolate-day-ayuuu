@@ -1,156 +1,133 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
-    background-color: #f3e5dc; /* Creamy background */
+    background-color: #fce4ec; /* Soft pink */
     font-family: 'Poppins', sans-serif;
     height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     overflow: hidden;
-    text-align: center;
-}
-
-.container {
-    position: relative;
-    z-index: 10;
+    margin: 0;
 }
 
 .title {
-    font-family: 'Dancing Script', cursive;
-    color: #5d4037; /* Chocolate brown */
-    font-size: 2.5rem;
-    margin-bottom: 40px;
-    line-height: 1.2;
+    font-family: 'Pacifico', cursive;
+    color: #5d4037;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
 }
 
-/* The Box */
-.box-container {
+/* BOX STYLES */
+.box-wrapper {
     position: relative;
     width: 200px;
-    height: 150px;
-    margin: 0 auto;
+    height: 120px;
     cursor: pointer;
-    transition: transform 0.3s;
+    margin-bottom: 20px;
 }
 
 .box-body {
     width: 100%;
     height: 100%;
-    background-color: #3e2723;
-    border-radius: 10px;
+    background: #3e2723;
+    border-radius: 0 0 10px 10px;
     position: absolute;
     bottom: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
 .box-lid {
     width: 210px;
-    height: 50px;
-    background-color: #5d4037;
+    height: 40px;
+    background: #5d4037;
     position: absolute;
     top: -10px;
     left: -5px;
     border-radius: 5px;
-    z-index: 5;
-    transition: transform 0.6s ease-in-out;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    z-index: 10;
+    transition: all 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 .bow {
     width: 40px;
     height: 40px;
-    background-color: #d32f2f;
+    background: #d32f2f;
     border-radius: 50%;
-    position: relative;
-    top: -10px;
-}
-
-.bow::before, .bow::after {
-    content: '';
     position: absolute;
-    width: 40px;
-    height: 40px;
-    border: 4px solid #d32f2f;
-    border-radius: 50%;
-    top: 5px;
+    left: 50%;
+    top: -15px;
+    transform: translateX(-50%);
 }
 
-.bow::before { left: -20px; }
-.bow::after { right: -20px; }
-
-/* Hidden Content */
-.chocolates {
+/* CHOCOLATES */
+.chocolates-container {
     display: flex;
-    gap: 10px;
+    gap: 15px;
     opacity: 0;
-    transition: opacity 1s 0.5s;
+    transition: opacity 0.5s;
+    pointer-events: none; /* Cannot click until open */
 }
 
 .choco {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     background: #795548;
-    border-radius: 50%;
-    border: 2px solid #a1887f;
+    cursor: pointer;
+    transition: transform 0.2s;
+    position: relative;
 }
 
-.choco.heart {
-    background-color: #d7ccc8;
-    clip-path: polygon(50% 0%, 100% 35%, 80% 100%, 50% 80%, 20% 100%, 0% 35%);
+.choco:active { transform: scale(0.9); }
+.choco.heart { background: #8d6e63; clip-path: path('M17.5 35 C -15 15, 5 -10, 17.5 10 C 30 -10, 50 15, 17.5 35'); }
+.choco.round { border-radius: 50%; border: 2px solid #a1887f; }
+.choco.square { border-radius: 4px; background: linear-gradient(45deg, #5d4037 25%, #4e342e 25%, #4e342e 50%, #5d4037 50%, #5d4037 75%, #4e342e 75%, #4e342e 100%); }
+
+/* ANIMATIONS & STATES */
+.box-wrapper.shake { animation: shake 0.5s; }
+.box-wrapper.open .box-lid { transform: translateY(-150px) rotate(-10deg); opacity: 0; }
+.box-wrapper.open .chocolates-container { opacity: 1; pointer-events: auto; }
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px) rotate(-5deg); }
+    75% { transform: translateX(5px) rotate(5deg); }
 }
 
-.message-card {
+.instruction { color: #888; font-size: 0.9rem; animation: pulse 1.5s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+
+/* POPUP TEXT (Yum!) */
+.pop-text {
     position: absolute;
-    bottom: -60px;
-    background: white;
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 0.8rem;
-    color: #333;
-    opacity: 0;
-    width: 220px;
-    transform: translateY(20px);
-    transition: all 0.6s ease;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    font-weight: bold;
+    color: #d32f2f;
+    font-size: 1.2rem;
+    pointer-events: none;
+    animation: floatUp 1s forwards;
 }
+@keyframes floatUp { to { transform: translateY(-50px); opacity: 0; } }
 
-.instruction {
-    margin-top: 50px;
-    color: #8d6e63;
-    font-size: 0.9rem;
-    animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-}
-
-/* Open State classes */
-.open .box-lid {
-    transform: translateY(-120px) rotate(-10deg);
-}
-
-.open .chocolates {
-    opacity: 1;
-}
-
-.open .message-card {
-    opacity: 1;
-    transform: translateY(110px); /* Moves card down below box */
-}
-
-.open + .instruction {
+/* HIDDEN MESSAGE */
+.hidden-message {
     display: none;
+    text-align: center;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    margin-top: 20px;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
+.hidden-message h2 { color: #d32f2f; margin: 0; }
+.signature { font-style: italic; color: #555; margin-top: 10px; }
+.hidden-message button {
+    background: #d32f2f; color: white; border: none; padding: 8px 16px;
+    border-radius: 20px; margin-top: 10px; cursor: pointer;
+}
+
+@keyframes popIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
